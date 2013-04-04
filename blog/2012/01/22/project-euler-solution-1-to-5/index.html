@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Project Euler 01 ~ 05 的解答 - Keep Hacking :)</title>
+  <meta name="author" content="Yen-Ying Lee">
+
+  
+  <meta name="description" content="什麼是Project Euler？ 我引述Project Euler網站的一段話： &#8220;Project Euler exists to encourage, challenge, and develop the skills and enjoyment of anyone with an &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://white1033.github.com/blog/2012/01/22/project-euler-solution-1-to-5">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Keep Hacking :)" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Keep Hacking :)</a></h1>
+  
+    <h2>Rock the World!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:white1033.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Project Euler 01 ~ 05 的解答</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-22T18:04:00+08:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>什麼是Project Euler？</h2>
+
+<p>我引述<a href="http://projecteuler.net/">Project Euler</a>網站的一段話：</p>
+
+<blockquote><p>&#8220;Project Euler exists to encourage, challenge, and develop the skills and enjoyment of anyone with an interest in the fascinating world of mathematics.&#8221;</p></blockquote>
+
+<p>所以，如果你也是上面所說的人，那麼就一起加入吧！</p>
+
+<!-- more -->
+
+
+<h2>Project Euler 01</h2>
+
+<p><a href="http://projecteuler.net/problem=1">題目</a>
+這題其實不難，用手算其實絕對可以的，但是既然是用來練習程式，那我們就來寫吧！</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c">#-*- coding:utf-8 -*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">5</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>程式碼也很簡單好懂，這要感謝<a href="http://python.org/">Python</a>的<a href="http://www.python.org/dev/peps/pep-0202/">List Comprehensions</a>，讓程式碼看起來就是很舒服好懂:)</p>
+
+<h2>Project Euler 02</h2>
+
+<p><a href="http://projecteuler.net/problem=2">題目</a>
+這題只要照著<a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci number</a>的定義下手，就不難了，没有什麼特别的技巧。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c">#-*- coding:utf-8 -*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">fib1</span><span class="p">,</span> <span class="n">fib2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+</span><span class='line'><span class="n">sum_fibs</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="k">while</span> <span class="n">fib1</span> <span class="o">&lt;</span> <span class="mi">4000000</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">fib1</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span> <span class="n">sum_fibs</span> <span class="o">+=</span> <span class="n">fib1</span>
+</span><span class='line'>    <span class="n">fib1</span><span class="p">,</span> <span class="n">fib2</span> <span class="o">=</span> <span class="n">fib2</span><span class="p">,</span> <span class="n">fib1</span> <span class="o">+</span> <span class="n">fib2</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span><span class="p">(</span><span class="n">sum_fibs</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>照着Fibonacci Number的定義打一下，就幾乎是程式本身了，還算簡單吧:D</p>
+
+<h2>Project Euler 03</h2>
+
+<p><a href="http://projecteuler.net/problem=3">題目</a>
+這題希望我們找出最大的質因數，主要的想法就是從2開始慢慢往上找質因數，找到最後一個，那它就是答案了:)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c">#-*- coding:utf-8 -*-</span>
+</span><span class='line'><span class="n">target</span> <span class="o">=</span> <span class="mi">600851475143</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">while</span> <span class="ow">not</span> <span class="n">target</span> <span class="o">%</span> <span class="n">div</span><span class="p">:</span> <span class="n">target</span> <span class="o">/=</span> <span class="n">div</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">div</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">break</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Project Euler 04</h2>
+
+<p><a href="http://projecteuler.net/problem=4">題目</a>
+這題在問説用兩個三位數乘出來最大的迴文數是誰？很單純的想法就是把三位數的乘積都算出來，然後判斷它是不是迴文數。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c">#-*- coding:utf-8 -*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">itertools</span><span class="o">,</span> <span class="nn">euler</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">prod_set</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">xrange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+</span><span class='line'><span class="n">Max</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">prod_set</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">euler</span><span class="o">.</span><span class="n">is_palindrome</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span> <span class="ow">and</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">Max</span><span class="p">:</span> <span class="n">Max</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span><span class="p">(</span><span class="n">Max</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在這裡順道附上<a href="http://git.io/ZNrfyg">euler.py</a>的内容，你會發現用Python判斷迴文數出奇的簡單:D</p>
+
+<h2>Project Euler 05</h2>
+
+<p><a href="http://projecteuler.net/problem=5">題目</a>
+這題要找1~20的最小公倍數，簡單的想法就是我們做一個求最大公因數的函式就好了:)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c">#-*- coding:utf-8 -*-</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">euler</span> <span class="kn">import</span> <span class="n">gcd</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ans</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span class='line'><span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">21</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">ans</span> <span class="o">*=</span> <span class="n">num</span> <span class="o">/</span> <span class="n">gcd</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最大公因數的演算法放在<a href="http://git.io/ZNrfyg">euler.py</a>裏面:p</p>
+
+<p>這次先分享五題，希望我會有耐性把我寫過的題目一題一題的打出來。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Yen-Ying Lee</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-22T18:04:00+08:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/projecteuler/'>ProjectEuler</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://white1033.github.com/blog/2012/01/22/project-euler-solution-1-to-5/" data-via="white1033" data-counturl="http://white1033.github.com/blog/2012/01/22/project-euler-solution-1-to-5/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/01/21/regular-expression-to-check-for-prime-numbers/" title="Previous Post: 使用Regular Expression去驗證質數">&laquo; 使用Regular Expression去驗證質數</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/01/25/guessing-number-puzzle/" title="Next Post: 有趣的猜數字謎題">有趣的猜數字謎題 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/17/lets-go/">初探Go</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/10/from-rvm-to-rbenv/">從rvm轉換到rbenv</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/15/some-usefull-octopress-tips/">一些Octopress的小技巧</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/14/project-euler-solution-061/">Project Euler 61的解答</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/30/project-euler-solution-124/">Project Euler 124的解答</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+<h1>分類</h1>
+<span class='categories_tag'> <a href='/blog/categories/golang' style='font-size: 107.5%'>Golang(1)</a>  <a href='/blog/categories/math' style='font-size: 107.5%'>Math(1)</a>  <a href='/blog/categories/octopress' style='font-size: 107.5%'>Octopress(1)</a>  <a href='/blog/categories/projecteuler' style='font-size: 160.0%'>Projecteuler(8)</a>  <a href='/blog/categories/puzzle' style='font-size: 115.0%'>Puzzle(2)</a>  <a href='/blog/categories/ruby' style='font-size: 115.0%'>Ruby(2)</a> </span>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("white1033", 4, true);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/white1033" class="twitter-follow-button" data-show-count="false">Follow @white1033</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Yen-Ying Lee -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'white1033';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://white1033.github.com/blog/2012/01/22/project-euler-solution-1-to-5/';
+        var disqus_url = 'http://white1033.github.com/blog/2012/01/22/project-euler-solution-1-to-5/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

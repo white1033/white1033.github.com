@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://white1033.github.com/sitemap.xml 

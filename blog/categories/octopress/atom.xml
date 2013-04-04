@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Octopress | Keep Hacking :)]]></title>
+  <link href="http://white1033.github.com/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://white1033.github.com/"/>
+  <updated>2013-04-04T15:56:03+08:00</updated>
+  <id>http://white1033.github.com/</id>
+  <author>
+    <name><![CDATA[Yen-Ying Lee]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[一些Octopress的小技巧]]></title>
+    <link href="http://white1033.github.com/blog/2012/12/15/some-usefull-octopress-tips/"/>
+    <updated>2012-12-15T21:29:00+08:00</updated>
+    <id>http://white1033.github.com/blog/2012/12/15/some-usefull-octopress-tips</id>
+    <content type="html"><![CDATA[<p>最近在發現了一些Octopress的小技巧，就放上來跟大家一同分享。</p>
+
+<h3>上傳文章</h3>
+
+<p>大家在上傳文章前必做的兩個指令就是
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake generate
+</span><span class='line'>rake deploy</span></code></pre></td></tr></table></div></figure></notextile></div>
+不過它其實可以簡化成
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake gen_deploy</span></code></pre></td></tr></table></div></figure></notextile></div>
+就可以把兩個指令併成一個指令了！</p>
+
+<!-- more -->
+
+
+<h3>新增頁面</h3>
+
+<p>之前都不知道要如何新增一個新的頁面出來，直到最近(遮臉)
+其實就跟新增文章的指令一樣<code>new_post[your_post]</code>，新的頁面的指令就是<code>new_page[your_page]</code>，它就會產生一個makedown的檔案讓妳去編輯。之後妳需要做的就是將連結放到妳想要的地方了。</p>
+]]></content>
+  </entry>
+  
+</feed>

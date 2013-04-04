@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>初解八皇后問題 - Keep Hacking :)</title>
+  <meta name="author" content="Yen-Ying Lee">
+
+  
+  <meta name="description" content="這個其實是個很有名的問題，可是我直到最近才好好的(？)把這個題目給好好的做了一下。看來有人問問題還是比較有壓力快快的解出問題XD 從西洋棋說起 這是一個由西洋棋來的問題，問說是否可以找到一種放置八個皇后的方法，使得八個皇后不會相互吃到對方，也就是說整個棋盤會被八個皇后給蓋住。 在軍中的時候， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://white1033.github.com/blog/2012/03/24/first-glance-on-eight-queens-problem">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Keep Hacking :)" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Keep Hacking :)</a></h1>
+  
+    <h2>Rock the World!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:white1033.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">初解八皇后問題</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-24T21:05:00+08:00" pubdate data-updated="true">Mar 24<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>這個其實是個很有名的問題，可是我直到最近才好好的(？)把這個題目給好好的做了一下。看來有人問問題還是比較有壓力快快的解出問題XD</p>
+
+<h2>從西洋棋說起</h2>
+
+<p>這是一個由西洋棋來的問題，問說是否可以找到一種放置八個皇后的方法，使得八個皇后不會相互吃到對方，也就是說整個棋盤會被八個皇后給蓋住。</p>
+
+<p>在軍中的時候，其實有跟資工的同梯談過這個問題，他說這種題目通常有兩種重要的取向，一個是最快解出一組解，另一個是最快解出所有的解。</p>
+
+<p>不過因為我用的語言不是C/C++，感覺也不用跟別人爭什麼最快，就開開心心的解就好了。</p>
+
+<!-- more -->
+
+
+<h2>八城堡問題？</h2>
+
+<p>我在公車上想這個問題的時候，第一個跑入腦中的就是「八城堡問題」。我得說，可能真的找不到這個名字的問題，不過我覺得是個很好的簡化。</p>
+
+<p>其實我們做的事情就是將皇后換成了城堡，不過這個問題就簡單很多了，因為只要是一個一到八的排列就是解答了。例如給出[1, 2, 3, 4, 5, 6, 7, 8]，就對應到(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8)這八個點，很明顯就是個八城堡的解。我們得到了一組八城堡的解，也就快得到一組八皇后的解了，因為我們只要去看檢查對角線的方向，是不是有蓋到對方，就可以知道是不是一組八皇后的解了。</p>
+
+<h2>解法</h2>
+
+<p>有了想法，實現就不難，下面附上我的ruby寫法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1">#!/usr/bin/env ruby</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;set&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="n">perm</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">0</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">perm</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
+</span><span class='line'>      <span class="nb">print</span> <span class="n">i</span> <span class="o">==</span> <span class="n">x</span> <span class="p">?</span> <span class="s1">&#39; Q&#39;</span> <span class="p">:</span> <span class="s1">&#39; .&#39;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="nb">puts</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">Array</span><span class="p">(</span><span class="mi">0</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">perm</span><span class="o">|</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">0</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">perm</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">-</span> <span class="n">i</span> <span class="p">}</span><span class="o">.</span><span class="n">to_set</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">8</span> <span class="o">&amp;&amp;</span>
+</span><span class='line'>     <span class="nb">Array</span><span class="p">(</span><span class="mi">0</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">perm</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">i</span> <span class="p">}</span><span class="o">.</span><span class="n">to_set</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">8</span>
+</span><span class='line'>    <span class="n">layout</span><span class="p">(</span><span class="n">perm</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">break</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>果然是很輕鬆就解決了XD，希望還有寫出下一個更快速的解法的機會:P</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Yen-Ying Lee</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-24T21:05:00+08:00" pubdate data-updated="true">Mar 24<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/puzzle/'>Puzzle</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://white1033.github.com/blog/2012/03/24/first-glance-on-eight-queens-problem/" data-via="white1033" data-counturl="http://white1033.github.com/blog/2012/03/24/first-glance-on-eight-queens-problem/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/02/25/project-euler-solution-358/" title="Previous Post: Project Euler 358的解答">&laquo; Project Euler 358的解答</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/08/04/ruby-warrior/" title="Next Post: 玩Ruby Warrior學Ruby">玩Ruby Warrior學Ruby &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/17/lets-go/">初探Go</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/10/from-rvm-to-rbenv/">從rvm轉換到rbenv</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/15/some-usefull-octopress-tips/">一些Octopress的小技巧</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/14/project-euler-solution-061/">Project Euler 61的解答</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/30/project-euler-solution-124/">Project Euler 124的解答</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+<h1>分類</h1>
+<span class='categories_tag'> <a href='/blog/categories/golang' style='font-size: 107.5%'>Golang(1)</a>  <a href='/blog/categories/math' style='font-size: 107.5%'>Math(1)</a>  <a href='/blog/categories/octopress' style='font-size: 107.5%'>Octopress(1)</a>  <a href='/blog/categories/projecteuler' style='font-size: 160.0%'>Projecteuler(8)</a>  <a href='/blog/categories/puzzle' style='font-size: 115.0%'>Puzzle(2)</a>  <a href='/blog/categories/ruby' style='font-size: 115.0%'>Ruby(2)</a> </span>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("white1033", 4, true);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/white1033" class="twitter-follow-button" data-show-count="false">Follow @white1033</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Yen-Ying Lee -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'white1033';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://white1033.github.com/blog/2012/03/24/first-glance-on-eight-queens-problem/';
+        var disqus_url = 'http://white1033.github.com/blog/2012/03/24/first-glance-on-eight-queens-problem/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

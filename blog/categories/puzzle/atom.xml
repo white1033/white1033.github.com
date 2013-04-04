@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Puzzle | Keep Hacking :)]]></title>
+  <link href="http://white1033.github.com/blog/categories/puzzle/atom.xml" rel="self"/>
+  <link href="http://white1033.github.com/"/>
+  <updated>2013-04-04T15:56:03+08:00</updated>
+  <id>http://white1033.github.com/</id>
+  <author>
+    <name><![CDATA[Yen-Ying Lee]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[初解八皇后問題]]></title>
+    <link href="http://white1033.github.com/blog/2012/03/24/first-glance-on-eight-queens-problem/"/>
+    <updated>2012-03-24T21:05:00+08:00</updated>
+    <id>http://white1033.github.com/blog/2012/03/24/first-glance-on-eight-queens-problem</id>
+    <content type="html"><![CDATA[<p>這個其實是個很有名的問題，可是我直到最近才好好的(？)把這個題目給好好的做了一下。看來有人問問題還是比較有壓力快快的解出問題XD</p>
+
+<h2>從西洋棋說起</h2>
+
+<p>這是一個由西洋棋來的問題，問說是否可以找到一種放置八個皇后的方法，使得八個皇后不會相互吃到對方，也就是說整個棋盤會被八個皇后給蓋住。</p>
+
+<p>在軍中的時候，其實有跟資工的同梯談過這個問題，他說這種題目通常有兩種重要的取向，一個是最快解出一組解，另一個是最快解出所有的解。</p>
+
+<p>不過因為我用的語言不是C/C++，感覺也不用跟別人爭什麼最快，就開開心心的解就好了。</p>
+
+<!-- more -->
+
+
+<h2>八城堡問題？</h2>
+
+<p>我在公車上想這個問題的時候，第一個跑入腦中的就是「八城堡問題」。我得說，可能真的找不到這個名字的問題，不過我覺得是個很好的簡化。</p>
+
+<p>其實我們做的事情就是將皇后換成了城堡，不過這個問題就簡單很多了，因為只要是一個一到八的排列就是解答了。例如給出[1, 2, 3, 4, 5, 6, 7, 8]，就對應到(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8)這八個點，很明顯就是個八城堡的解。我們得到了一組八城堡的解，也就快得到一組八皇后的解了，因為我們只要去看檢查對角線的方向，是不是有蓋到對方，就可以知道是不是一組八皇后的解了。</p>
+
+<h2>解法</h2>
+
+<p>有了想法，實現就不難，下面附上我的ruby寫法。
+```ruby</p>
+
+<h1>!/usr/bin/env ruby</h1>
+
+<p>require "set"</p>
+
+<p>def layout(perm)
+  (0 ... 8).each do |i|</p>
+
+<pre><code>perm.each do |x|
+  print i == x ? ' Q' : ' .'
+end
+puts
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>Array(0 ... 8).permutation(8) do |perm|
+  if Array(0 ... 8).map { |i| perm[i] - i }.to_set.size == 8 &amp;&amp;</p>
+
+<pre><code> Array(0 ... 8).map { |i| perm[i] + i }.to_set.size == 8
+layout(perm)
+break
+</code></pre>
+
+<p>  end
+end
+```
+果然是很輕鬆就解決了XD，希望還有寫出下一個更快速的解法的機會:P</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[有趣的猜數字謎題]]></title>
+    <link href="http://white1033.github.com/blog/2012/01/25/guessing-number-puzzle/"/>
+    <updated>2012-01-25T14:46:00+08:00</updated>
+    <id>http://white1033.github.com/blog/2012/01/25/guessing-number-puzzle</id>
+    <content type="html"><![CDATA[<p>這種題目感覺就是百出不厭，一些公司的面試題也會出現，不過解起來也是十分有趣:D</p>
+
+<h2>題目</h2>
+
+<p>老師心中想了一個兩位數。他把這兩位數的兩個數字和告訴了A，把這個兩位數的正因數個數告訴了B。</p>
+
+<p>A：我不知道。</p>
+
+<p>B：我也不知道, 但我知道是否為偶數。</p>
+
+<p>A：我知道了。</p>
+
+<p>B：我也知道了。</p>
+
+<p>請問此兩位數是誰？</p>
+
+<p>以前自己做這種題目，都是拿著筆一個一個慢慢淘汰，不過今天要選擇用把我的解題邏輯寫成程式碼，讓電腦幫我做淘汰這件事情:p</p>
+
+<!-- more -->
+
+
+<p>附上我的程式碼跟解題邏輯：</p>
+
+<p>``` ruby</p>
+
+<h1>!/usr/bin/env ruby</h1>
+
+<p>$digit_sum_hash = Hash.new { |hash, key| hash[key] = [] }
+$div_num_hash = Hash.new { |hash, key| hash[key] = [] }
+$num_list = (10 .. 99).to_a</p>
+
+<p>def sum_of_digit(num)
+  return num.to_s.split(//).map(&amp;:to_i).inject(:+)
+end</p>
+
+<p>def num_of_div(num)
+  ans = 0
+  (1 .. num).each do |e|</p>
+
+<pre><code>ans += 1 if num % e == 0
+</code></pre>
+
+<p>  end
+  return ans
+end</p>
+
+<p>$num_list.each do |e|
+  $digit_sum_hash[sum_of_digit(e)].push(e)
+  $div_num_hash[num_of_div(e)].push(e)
+end</p>
+
+<p>def first_step(n)
+  return $digit_sum_hash[sum_of_digit(n)].length >= 2
+end</p>
+
+<p>def second_step(n)
+  subset = $div_num_hash[num_of_div(n)].select { |e| first_step(e) }
+  return subset.length >= 2 &amp;&amp;</p>
+
+<pre><code>    (subset.all? { |e| e.even? } || subset.all? { |e| !(e.even?) })
+</code></pre>
+
+<p>end</p>
+
+<p>def third_step(n)
+  subset = $digit_sum_hash[sum_of_digit(n)].select { |e| second_step(e) }
+  return (subset.length == 1)
+end</p>
+
+<p>def forth_step(n)
+  subset = $div_num_hash[num_of_div(n)].select { |e|</p>
+
+<pre><code>first_step(e) &amp;&amp; third_step(e) 
+</code></pre>
+
+<p>  }
+  return (subset.length == 1)
+end</p>
+
+<p>def final_step
+  subset = $num_list.select { |e|</p>
+
+<pre><code>first_step(e) &amp;&amp; second_step(e) &amp;&amp;
+third_step(e) &amp;&amp; forth_step(e)
+</code></pre>
+
+<p>  }
+  return subset
+end</p>
+
+<p>p final_step()
+```</p>
+
+<p>程式碼很多地方没有最佳化，因爲數字都還蠻小的(遮臉)，如果有更好的寫法，還請不吝指教一下:D</p>
+
+<p>解題邏輯也很直觀，就照着對話依序删减可能的數字，最後一步就會跑出唯一的解答。</p>
+
+<p>下次有機會在分享一些有趣的題目:D</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Golang | Keep Hacking :)]]></title>
+  <link href="http://white1033.github.com/blog/categories/golang/atom.xml" rel="self"/>
+  <link href="http://white1033.github.com/"/>
+  <updated>2013-04-04T15:56:03+08:00</updated>
+  <id>http://white1033.github.com/</id>
+  <author>
+    <name><![CDATA[Yen-Ying Lee]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[初探Go]]></title>
+    <link href="http://white1033.github.com/blog/2013/03/17/lets-go/"/>
+    <updated>2013-03-17T17:00:00+08:00</updated>
+    <id>http://white1033.github.com/blog/2013/03/17/lets-go</id>
+    <content type="html"><![CDATA[<p>主要想學的原因是因為一些<a href="http://projecteuler.net/">ProjectEuler</a>的題目用<code>Ruby</code>或是<code>Perl</code>寫的時候，因為計算量太大，然後程式沒有辦法在一分鐘內跑完。</p>
+
+<p>本來是想用之前學的<code>C/C++</code>來寫的，不過看到最近<code>golang</code>這麼熱，就來學一下啦！
+先來記錄一些學習的資料</p>
+
+<ul>
+<li><a href="http://golang.org">官網</a></li>
+<li><a href="http://godoc.org">GoDoc</a></li>
+<li><a href="http://tour.golang.org/#1">A Tour of Go</a></li>
+<li><a href="http://golang.org/doc/effective_go.html">Effective Go</a></li>
+<li><a href="http://www.golang-book.com">An Introduction to Programming in Go</a></li>
+<li><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/preface.md">用Go開發網頁應用</a></li>
+</ul>
+
+
+<p>這些應該夠我看一段時間了:)</p>
+]]></content>
+  </entry>
+  
+</feed>

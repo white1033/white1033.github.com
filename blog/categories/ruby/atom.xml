@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ruby | Keep Hacking :)]]></title>
+  <link href="http://white1033.github.com/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://white1033.github.com/"/>
+  <updated>2013-04-04T15:56:03+08:00</updated>
+  <id>http://white1033.github.com/</id>
+  <author>
+    <name><![CDATA[Yen-Ying Lee]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[從rvm轉換到rbenv]]></title>
+    <link href="http://white1033.github.com/blog/2013/03/10/from-rvm-to-rbenv/"/>
+    <updated>2013-03-10T01:16:00+08:00</updated>
+    <id>http://white1033.github.com/blog/2013/03/10/from-rvm-to-rbenv</id>
+    <content type="html"><![CDATA[<p>最近把用了一陣子的<code>rvm</code>給反安裝掉了，然後換成了<code>rbenv</code>來用用。會換過來的原因只是覺得<code>rbenv</code>比較輕量，而不是覺得<code>rvm</code>真的有什麼不好。</p>
+
+<p>來記錄一下要怎麼轉換過來。</p>
+
+<h2>反安裝rvm</h2>
+
+<p>這個應該是最簡單的一步XD
+<code>bash
+$ rvm implode
+</code></p>
+
+<p>然後再將你<code>zsh</code>或<code>bash</code>中的這一句拿掉。
+<code>
+[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm" # Load RVM function
+</code></p>
+
+<!-- more -->
+
+
+<h2>安裝rbenv</h2>
+
+<p>我是透過<a href="http://mxcl.github.com/homebrew/">Homebrew</a>去安裝的。
+<code>bash
+$ brew install rbenv
+$ brew install ruby-build
+</code>
+要安裝<code>ruby-build</code>的原因是因為可以比較簡單的去安裝各個版本的ruby。</p>
+
+<p>然後是把<code>~/.rbenv/bin</code>加到你的<code>$PATH</code>中。
+<code>bash
+$ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.zshrc
+</code></p>
+
+<p>再來是將<code>rbenv init</code>加到你的shell中。
+<code>bash
+$ echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.zshrc
+</code></p>
+
+<p>重新載入設定。
+<code>bash
+$ source ~/.zshrc
+</code></p>
+
+<p>最後當然是來裝個最新的ruby 2.0來玩玩:p
+<code>bash
+$ rbenv install 2.0.0-p0
+</code></p>
+
+<p>先寫到這裡，之後有什麼心得再補上來。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[玩Ruby Warrior學Ruby]]></title>
+    <link href="http://white1033.github.com/blog/2012/08/04/ruby-warrior/"/>
+    <updated>2012-08-04T17:19:00+08:00</updated>
+    <id>http://white1033.github.com/blog/2012/08/04/ruby-warrior</id>
+    <content type="html"><![CDATA[<p>最近看到了這個<a href="http://vimeo.com/groups/rubytw/videos/29884753">影片</a>，上面談到了一個遊戲叫做<a href="https://github.com/ryanb/ruby-warrior/">Ruby Warrior</a>，說是可以藉由玩這個遊戲來學習<a href="http://www.ruby-lang.org/en/">Ruby</a>。</p>
+
+<p>玩遊戲學Ruby，聽起來挺不錯的，不過要怎麼開始？</p>
+
+<h2>開始玩吧！</h2>
+
+<p>首先當然要把遊戲先裝起來啊！！先把Ruby Warrior的gem給裝一下
+<code>bash
+gem install rubywarrior
+</code></p>
+
+<p>再來執行<code>rubywarrior</code>後，就可以新增帳號開始玩了！</p>
+
+<!-- more -->
+
+
+<h2>該怎麼玩啊？</h2>
+
+<p>遊戲主要是藉由去修改<code>player.rb</code>，然後去執行<code>rubywarrior</code>後，看看妳寫的程式是否可以過關:)</p>
+
+<p>一開始你會發現你的<code>player.rb</code>長的像這樣
+```ruby
+class Player
+  def play_turn(warrior)</p>
+
+<pre><code># your code goes here
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>十分的乾淨…  不過幸好，第一關也是很簡單，只要一直向前走，就可以過關了:D
+就像下面的這樣：
+```ruby
+class Player
+  def play_turn(warrior)</p>
+
+<pre><code>warrior.walk!
+</code></pre>
+
+<p>  end
+end
+```
+這樣就可以過第一關了:D</p>
+
+<p>不過我想這個遊戲的最大樂趣應該就是靠自己寫的程式過關吧:p
+所以我也不多分享程式碼了，如果有卡關的再一同討論吧:D</p>
+]]></content>
+  </entry>
+  
+</feed>

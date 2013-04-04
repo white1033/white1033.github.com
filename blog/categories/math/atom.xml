@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Math | Keep Hacking :)]]></title>
+  <link href="http://white1033.github.com/blog/categories/math/atom.xml" rel="self"/>
+  <link href="http://white1033.github.com/"/>
+  <updated>2013-04-04T15:56:03+08:00</updated>
+  <id>http://white1033.github.com/</id>
+  <author>
+    <name><![CDATA[Yen-Ying Lee]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用Regular Expression去驗證質數]]></title>
+    <link href="http://white1033.github.com/blog/2012/01/21/regular-expression-to-check-for-prime-numbers/"/>
+    <updated>2012-01-21T13:57:00+08:00</updated>
+    <id>http://white1033.github.com/blog/2012/01/21/regular-expression-to-check-for-prime-numbers</id>
+    <content type="html"><![CDATA[<p>我們都知道Regular Expression是一個很厲害的工具，但是它可以用來判斷質數，是不是聽起來有點嚇人:P</p>
+
+<p>我們先來看一下程式碼：
+``` ruby
+class Fixnum
+  def is_prime?</p>
+
+<pre><code>("1" * self) !~ /^1?$|^(11+?)\1+$/
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<!-- more -->
+
+
+<h2>它是正確的嗎？</h2>
+
+<p>其實這是最重要的問題，如果它一點都不正確，那它一點都不值得討論。</p>
+
+<p>讓我們來做一些驗證：
+``` ruby
+3.is_prime?</p>
+
+<h1>it returns true</h1>
+
+<p>8.is_prime?</p>
+
+<h1>it returns false</h1>
+
+<p>```
+看起來好像是對的，不過這是爲什麼？我們總不能試了幾個整數就説它是正確的，這樣不太講道理。</p>
+
+<h2>神奇的黑魔法</h2>
+
+<p>其實原理很簡單，我們一段一段來解釋清楚。</p>
+
+<p>首先是<code>^1?$</code>的部分，這段是用來解决當數字是0或者是1的特殊情况，所以當出現的數字是0或者是1的時候就會被比對到，程式就會輸出<code>false</code>。</p>
+
+<p>後面的<code>^(11+?)\1+$</code>是在做什麼呢？<code>\1+</code>是代表前面<code>(11+?)</code>的内容要重覆一次以上。哪<code>(11+?)</code>是幹什麼用的呢？它的作用就是用來比對長度從2開始<code>1..1</code>的字串，所以如果你輸入的數字是一個合數，那麼就會被比對成功，程式就會輸出<code>false</code>。</p>
+
+<p>所以老實說，我們不用太期待這個程式碼會多有效率，只是寫起來很酷罷了，Just for fun!</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ProjectEuler | Keep Hacking :)]]></title>
+  <link href="http://white1033.github.com/blog/categories/projecteuler/atom.xml" rel="self"/>
+  <link href="http://white1033.github.com/"/>
+  <updated>2013-04-04T15:56:03+08:00</updated>
+  <id>http://white1033.github.com/</id>
+  <author>
+    <name><![CDATA[Yen-Ying Lee]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Project Euler 61的解答]]></title>
+    <link href="http://white1033.github.com/blog/2012/10/14/project-euler-solution-061/"/>
+    <updated>2012-10-14T20:42:00+08:00</updated>
+    <id>http://white1033.github.com/blog/2012/10/14/project-euler-solution-061</id>
+    <content type="html"><![CDATA[<p><a href="http://projecteuler.net/problem=61">題目</a>介紹了六種數列，分別是三角形數、四角形數、五角形數、六角形數、七角形數和八角形數。現在問題要找出來六個數字，分別在這六個數列中，而且可以頭尾相連連成一圈。網頁上有舉一個長度為四的數列，如果不懂的話可以去看看。</p>
+
+<h2>做表查一下</h2>
+
+<p>這題好像出奇的簡單啊啊啊啊，我的做法是把這六種數列的頭兩位數字做成一個表，然後用後兩位數去查有沒有合的數字，然後就一直查下去，直到有六個數字分別來自六個數列並頭尾相連成一圈。</p>
+
+<!-- more -->
+
+
+<p>附上程式碼：
+``` ruby</p>
+
+<h1>!/usr/bin/env ruby -wKU</h1>
+
+<p>func = {
+  3 => ->(x) {x * (x + 1) / 2},
+  4 => ->(x) {x * x},
+  5 => ->(x) {x * (3 * x - 1) / 2},
+  6 => ->(x) {x * (2 * x - 1)},
+  7 => ->(x) {x * (5 * x - 3) / 2},
+  8 => ->(x) {x * (3 * x - 2)}
+}</p>
+
+<p>n, num, $type8 = 0, 0, []
+$nums = Hash.new { |hash, key| hash[key] = [] }
+while true
+  n += 1
+  (3 .. 8).reverse_each do |x|</p>
+
+<pre><code>num = func[x].(n)
+if (1000 .. 9999).include?(num)
+  if x == 8
+    $type8 &lt;&lt; num
+  else
+    $nums[num / 100] &lt;&lt; [num, x]
+  end
+end
+</code></pre>
+
+<p>  end
+  break if num > 9999
+end</p>
+
+<p>def solve(num_set, types)
+  if types.size == 6</p>
+
+<pre><code>if num_set[0] / 100 == num_set[-1] % 100
+  puts num_set.reduce(:+)
+end
+</code></pre>
+
+<p>  else</p>
+
+<pre><code>$nums[num_set[-1] % 100].each do |n|
+  unless types.include?(n[1])
+    solve(num_set + [n[0]], types + [n[1]])
+  end
+end
+</code></pre>
+
+<p>  end
+end
+$type8.each { |e| solve([e], [8]) }
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Project Euler 124的解答]]></title>
+    <link href="http://white1033.github.com/blog/2012/09/30/project-euler-solution-124/"/>
+    <updated>2012-09-30T13:29:00+08:00</updated>
+    <id>http://white1033.github.com/blog/2012/09/30/project-euler-solution-124</id>
+    <content type="html"><![CDATA[<p><a href="http://projecteuler.net/problem=124">題目</a>是這樣說的，有一個函數叫做<code>rad</code>，它是去運算一個整數的所有的質因數的乘積。題目要問的就是請我們對<code>1~100000</code>中的數字用rad的大小做排序(如果rad一樣大，就再用數字的大小去做排序)之後，問排序後第10000的數字是誰？</p>
+
+<h2>妳被迷惑了嗎？</h2>
+
+<p>其實這題我們並不用去真的對數字去做排序，甚至也不用有個大質數表來做質因數分解:p</p>
+
+<p>我的想法就是去推廣 <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a>，但是不是將數字給刪除，反倒是將它建成一個表，去記錄她被哪些質數給整除過，然後在用rad的數字去建一個表，將rad值一樣的數字存入，最後在去算第10000的數字是誰就好了:D</p>
+
+<!-- more -->
+
+
+<p>附上程式碼：
+```ruby</p>
+
+<h1>!/usr/bin/env ruby</h1>
+
+<p>limit, target = 100_000, 10_000
+rad = Hash.new { |h, k| h[k] = 1 }
+cache = Hash.new { |h, k| h[k] = [] }</p>
+
+<p>(2 .. limit).each do |x|
+  if rad[x] == 1</p>
+
+<pre><code>x.step(limit, x) { |y| rad[y] *= x }
+</code></pre>
+
+<p>  end
+  cache[rad[x]] &lt;&lt; x
+end</p>
+
+<p>cache.each_value do |v|
+  if target &lt;= v.size</p>
+
+<pre><code>puts v[target - 2] #ignore 1 
+break
+</code></pre>
+
+<p>  end
+  target -= v.size
+end
+```</p>
+
+<p>這樣子就可以很快的算出答案了:D</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Project Euler 113的解答]]></title>
+    <link href="http://white1033.github.com/blog/2012/09/19/project-euler-solution-113/"/>
+    <updated>2012-09-19T22:19:00+08:00</updated>
+    <id>http://white1033.github.com/blog/2012/09/19/project-euler-solution-113</id>
+    <content type="html"><![CDATA[<p><a href="http://projecteuler.net/problem=113">題目</a>是這樣說的，如果一個數字從左到右的各個位數是不嚴格遞增的話，那我們就說這種數字叫做遞增數，像是<code>134468</code>。反之，如果一個數字從左到右的各個位數是不嚴格遞減的話，那我們就說這種數字叫做遞減數，像是<code>66420</code>。如果一個數字從左到右的各個位數字，不是屬於上述的兩種狀況之一的話，我們就稱它是彈性數(Bouncy Number)。</p>
+
+<p>現在問題來了，想要請問小於<code>10^100</code>中的數字中，有多少不是彈性數？</p>
+
+<h2>高中排列組合</h2>
+
+<p>好吧，這題其實不是太難，如果妳的高中數學沒有忘的話:)</p>
+
+<p>遞增數的個數是<code>C(109, 9) - 1</code>，遞減數的個數是<code>C(110, 10) - 101</code>，又遞增又遞減的有<code>9 * 100</code>個，所以就只要寫個binomial的函數就可以了:D</p>
+
+<!-- more -->
+
+
+<p>附上程式碼：
+``` perl</p>
+
+<h1>!/usr/bin/env perl</h1>
+
+<p>use v5.12;
+use warnings;</p>
+
+<p>sub binomial {</p>
+
+<pre><code>use bigint;
+my ( $r, $n, $k ) = ( 1, @_ );
+$r = $r * ( $n + 1 - $_ ) / $_ foreach 1 .. $k;
+return $r;
+</code></pre>
+
+<p>}</p>
+
+<p>my $n = 100;
+say binomial( $n + 9, 9 ) - 1 + binomial( $n + 10, 10 ) - 101 - 9 * $n
+```</p>
+
+<p>所以只要善用數學，題目還是可以用很簡單的方法解出來的:D</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Project Euler 90的解答]]></title>
+    <link href="http://white1033.github.com/blog/2012/09/09/project-euler-solution-090/"/>
+    <updated>2012-09-09T22:29:00+08:00</updated>
+    <id>http://white1033.github.com/blog/2012/09/09/project-euler-solution-090</id>
+    <content type="html"><![CDATA[<p><a href="http://projecteuler.net/problem=90">題目</a>是這樣說的，有兩個六面骰子，同一個骰子的六個面的數字都不相同(但是不同顆可以有相同的數字)
+然後骰子上來的數字都是來自<code>0~9</code>當中，問的是有幾種不同的骰子組合可以組出<code>01, 04, 09, ..., 81</code>，也就是所有的小於一百的平方數。</p>
+
+<p>不過有一點要注意的就是說，題目提到可以將<code>6</code>和<code>9</code>混用，所以會比較多組答案。</p>
+
+<h2>硬爆才是王道</h2>
+
+<p>這題最直接的想法就是將所有的骰子的組合給拿出來檢驗，如果可以組出所有的平方數的話，就讓答案加一。</p>
+
+<p>總之，實做上不難，讓我們直接來看程式碼吧！</p>
+
+<!-- more -->
+
+
+<p>``` ruby</p>
+
+<h1>!/usr/bin/env ruby</h1>
+
+<p>def update_array(ary)
+  flag6 = ary.include?(6)
+  flag9 = ary.include?(9)
+  if flag6 &amp;&amp; flag9 || !flag6 &amp;&amp; !flag9</p>
+
+<pre><code>ary
+</code></pre>
+
+<p>  elsif flag6</p>
+
+<pre><code>ary &lt;&lt; 9
+return ary
+</code></pre>
+
+<p>  elsif flag9</p>
+
+<pre><code>ary &lt;&lt; 6
+return ary
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>square_dice =
+  [[0, 1], [0, 4], [0, 9], [1, 6], [2, 5], [3, 6], [4, 9], [6, 4], [8, 1]]
+ans = 0</p>
+
+<p>[*0 .. 9].combination(6).to_a.combination(2).each do |ary1, ary2|
+  ary1 = update_array(ary1)
+  ary2 = update_array(ary2)
+  flag = true
+  square_dice.each do |x, y|</p>
+
+<pre><code>if !(ary1.include?(y) &amp;&amp; ary2.include?(x)) &amp;&amp; 
+  !(ary1.include?(x) &amp;&amp; ary2.include?(y))
+  flag = false
+  break
+end
+</code></pre>
+
+<p>  end
+  ans += 1 if flag
+end
+puts ans
+```</p>
+
+<p>實際上跑起來也是挺快的:P 看來因為組合數沒有很大的關係:)</p>
+
+<p>BTW，這題是我在ProjectEuler上解的第一百五十題，呼~~</p>
+
+<p>又往前多進了一步了:D</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Project Euler 92的解答]]></title>
+    <link href="http://white1033.github.com/blog/2012/09/01/project-euler-solution-092/"/>
+    <updated>2012-09-01T19:27:00+08:00</updated>
+    <id>http://white1033.github.com/blog/2012/09/01/project-euler-solution-092</id>
+    <content type="html"><![CDATA[<p><a href="http://projecteuler.net/problem=92">題目</a>是這樣說的，妳只要將一個數字的各位數字平方後相加, 然後妳就一直重複這樣做，要嘛會停在1，不然就會掉到一個由89開頭的迴圈中(是有沒有這麼神奇！？)。</p>
+
+<p>問題就是要去問說，在一千萬以下，有多少數字會跑到89？</p>
+
+<h2>直觀的做法</h2>
+
+<p>由於經過一次操作過後，數字和一定不會超過567，所以我們可以做一個表，然後去看在0到567中間的數字會停在1或者是89。之後在去檢查小於一千萬裡面的數，有多少會掉到會回到89的數裡面，就可以算出來答案了。</p>
+
+<p>可是寫出來的程式跑的不是很快，讓人心情不是很好，所以就想了另一個演算法。</p>
+
+<!-- more -->
+
+
+<h2>改進過的做法</h2>
+
+<p>後來想想，如果像是<code>1234567</code>的<code>7!</code>種組合，其實經過一次操作後，都會回到同一個數字，可是我之前的做法就會重複算了<code>7!</code>次，就會慢了許多，因為一直重複算一樣的東西。</p>
+
+<p>所以新的做法，我是先去算出小於一千萬的數字經過一次操作後，所有可能的數字還有她們的組合數，然後再去看她們有多少會跑到89。</p>
+
+<p>``` perl</p>
+
+<h1>!/usr/bin/env perl</h1>
+
+<p>use v5.12;
+use warnings;
+use List::Util qw(sum);</p>
+
+<p>sub to_1or89 {</p>
+
+<pre><code>my $x = shift;
+while ( $x != 89 &amp;&amp; $x != 1 ) {
+    $x = sum( map { $_ * $_ } split //, $x );
+}
+return $x;
+</code></pre>
+
+<p>}</p>
+
+<p>my %hash = ( 0 => 1 );
+my @squares = ( 0, 1, 4, 9, 16, 25, 36, 49, 64, 81 );
+foreach ( 0 .. 6 ) {</p>
+
+<pre><code>my %tmp;
+while ( my ( $k, $v ) = each %hash ) {
+    $tmp{ $k + $_ } += $v foreach @squares;
+}
+%hash = %tmp;
+</code></pre>
+
+<p>}</p>
+
+<p>my %ans = ( 1 => 0, 89 => 0 );
+delete $hash{0};
+while ( my ( $k, $v ) = each %hash ) {</p>
+
+<pre><code>$ans{ to_1or89($k) } += $v;
+</code></pre>
+
+<p>}
+say $ans{89}
+```</p>
+
+<p>這樣改寫後，速度有十分大的提升啊，不到一秒就算完了，看來之後這種題目還是多花一點心思想一下好了。</p>
+
+<h3>其他資訊</h3>
+
+<p>Happy Number:<a href="http://en.wikipedia.org/wiki/Happy_number">http://en.wikipedia.org/wiki/Happy_number</a></p>
+]]></content>
+  </entry>
+  
+</feed>
