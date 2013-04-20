@@ -39,7 +39,7 @@ $ rvm implode 然後再將你zsh或bash中的這一句拿掉。 1 &hellip;">
   <header role="banner"><hgroup>
   <h1><a href="/">Keep Hacking :)</a></h1>
   
-    <h2>Rock the World!</h2>
+    <h2>Life is complex, it has both real and imaginary parts.</h2>
   
 </hgroup>
 
@@ -151,10 +151,40 @@ $ rvm implode 然後再將你zsh或bash中的這一句拿掉。 1 &hellip;">
 </span></code></pre></td></tr></table></div></figure>
 
 
+<p>裝個好用的plugin <a href="https://github.com/tpope/rbenv-aliases">Aliases for rbenv Ruby versions</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mkdir -p ~/.rbenv/plugins
+</span><span class='line'>git clone git://github.com/tpope/rbenv-aliases.git <span class="se">\</span>
+</span><span class='line'>  ~/.rbenv/plugins/rbenv-aliases
+</span><span class='line'>rbenv <span class="nb">alias</span> --auto
+</span></code></pre></td></tr></table></div></figure>
+
+
 <p>最後當然是來裝個最新的ruby 2.0來玩玩:p</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rbenv install 2.0.0-p0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>基本指令</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rbenv install --list <span class="c">#列出所有可安裝版本</span>
+</span><span class='line'><span class="nv">$ </span>rbenv versions <span class="c">#列出所有安裝的版本</span>
+</span><span class='line'><span class="nv">$ </span>rbenv version <span class="c">#列出目前使用的版本</span>
+</span><span class='line'><span class="nv">$ </span>rbenv global 2.0.0 <span class="c">#預設使用2.0.0</span>
+</span><span class='line'><span class="nv">$ </span>rbenv shell 2.0.0 <span class="c">#在目前使用的shell使用 2.0.0</span>
+</span><span class='line'><span class="nv">$ </span>rbenv <span class="nb">local </span>2.0.0 <span class="c">#在目前的資料夾使用 2.0.0</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
